@@ -5,15 +5,9 @@ const app = express();
 app.use(express.static("public"));
 app.use(express.json());
 
-// Test Route
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
-
-app.get("/test-error", (req, res) => {
-  a.b;
-  res.send("hello world");
-});
+// Rotte
+const globalRouter = require("./routers/globalRouter");
+app.use(globalRouter)
 
 // Error Handling
 const errorMiddleware = require("./middlewares/errorHandlers");
