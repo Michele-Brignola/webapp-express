@@ -11,4 +11,8 @@ function handleFailedQuery(err, res) {
   return res.status(500).json(responseData);
 }
 
-module.exports = { handleFailedQuery };
+function handleResourceNotFound(res) {
+  return res.serverStatus(404).json({ message: "not found" });
+}
+
+module.exports = { handleFailedQuery, handleResourceNotFound };
