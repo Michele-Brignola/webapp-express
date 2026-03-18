@@ -2,14 +2,18 @@ const express = require("express");
 const app = express();
 
 // Middlewares
+const cors = require("cors");
+
 app.use(express.static("public"));
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 app.use(express.json());
 
 // Rotte
 const globalRouter = require("./routers/globalRouter");
 const movieRouter = require("./routers/movieRouter");
-app.use(globalRouter)
-app.use("/movie", movieRouter)
+
+app.use(globalRouter);
+app.use("/movie", movieRouter);
 
 // Error Handling
 const errorMiddleware = require("./middlewares/errorHandlers");
