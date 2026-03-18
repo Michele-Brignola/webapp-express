@@ -6,13 +6,13 @@ app.use(express.static("public"));
 app.use(express.json());
 
 // Rotte
-const globalRouter = require("./backend-library/routers/globalRouter");
-const movieRouter = require("./backend-library/routers/movieRouter");
+const globalRouter = require("./routers/globalRouter");
+const movieRouter = require("./routers/movieRouter");
 app.use(globalRouter)
 app.use("/movie", movieRouter)
 
 // Error Handling
-const errorMiddleware = require("./backend-library/middlewares/errorHandlers");
+const errorMiddleware = require("./middlewares/errorHandlers");
 app.use(errorMiddleware.error404);
 app.use(errorMiddleware.error500);
 
