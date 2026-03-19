@@ -42,6 +42,27 @@ function store(req, res) {
   res.json({ message: "WIP" });
 }
 
+function storeReview(req, res) {
+  const { id } = req.params;
+  const { name, vote, text } = req.body;
+
+  const storeReviewSQL = `
+    INSERT INTO movies.reviews (movie_id, name, vote, text)
+    VALUES (?, ?, ?, ?)
+  `;
+
+  connection.query(storeReviewSQL, [id, name, vote, text], (err, resultStore) => {
+    if (err) return res.status(500).json({ error: err.message });
+
+    const showReviewSQL = `SELECT * FROM reviews WHERE id = ?`;
+    connection.query(showReviewSQL, [resultStore.insertId], (err, resultShow) => {
+      if (err) return res.status(500).json({ error: err.message });
+      const [review] = resultShow;
+      res.json(review);
+    });
+  });
+}
+
 function update(req, res) {
   res.json({ message: "WIP" });
 }
@@ -54,7 +75,7 @@ function destroy(req, res) {
   res.json({ message: "WIP" });
 }
 
-module.exports = { index, show, store, update, modify, destroy };
+module.exports = { index, show, store, storeReview, update, modify, destroy };
 
 function buildMovieImgPath(image) {
   return process.env.APP_URL + ":" + process.env.APP_PORT + "/img/" + image;

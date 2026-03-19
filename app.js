@@ -13,7 +13,7 @@ const globalRouter = require("./routers/globalRouter");
 const movieRouter = require("./routers/movieRouter");
 
 app.use(globalRouter);
-app.use("/movie", movieRouter);
+app.use("/movies", movieRouter);
 
 // Error Handling
 const errorMiddleware = require("./middlewares/errorHandlers");
